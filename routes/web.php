@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -25,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('rooms/{room:slug}', [RoomController::class, 'show'])->name('rooms.show');
+
+    Route::get('rooms/{room:slug}/messages', [MessageController::class, 'index'])->name('messages.index');
 
 });
 

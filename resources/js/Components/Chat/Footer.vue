@@ -20,8 +20,8 @@ const handleEnter = (e) => {
 
         message.value = "";
     }
-}
 
+}
 
 </script>
 
