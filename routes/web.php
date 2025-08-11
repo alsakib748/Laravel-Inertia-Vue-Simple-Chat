@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('rooms/{room:slug}/messages', [MessageController::class, 'index'])->name('messages.index');
 
+    Route::post('rooms/{room:slug}/messages', [MessageController::class, 'store'])->name('messages.store');
+
 });
 
 require __DIR__ . '/auth.php';
