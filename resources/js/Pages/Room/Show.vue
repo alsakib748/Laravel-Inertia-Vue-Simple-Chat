@@ -19,6 +19,12 @@ const storeMessage = (payload) => {
     messagesStore.storeMessage(props.room.slug, payload);
 }
 
+const channel = Echo.join(`room.${props.room.id}`);
+
+channel.listen("MessageCreated", (e) => {
+    console.log(e);
+});
+
 messagesStore.fetchMessages(props.room.slug);
 
 </script>
