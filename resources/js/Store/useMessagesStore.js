@@ -6,6 +6,7 @@ export const useMessagesStore = defineStore("messages", {
         return {
             page: 1,
             messages: [],
+            isLoaded: false,
         };
     },
     actions: {
@@ -15,12 +16,20 @@ export const useMessagesStore = defineStore("messages", {
                 .then((response) => {
                     (this.messages = [...this.messages, ...response.data.data]),
                         (this.page = response.data.meta.current_page);
+
+                    this.isLoaded = true;
                 });
+        },
+        fetchPreviousMessages(roomSlug) {
+            this.fetchMessages(roomSlug, this.page + 1);
         },
     },
     getters: {
         allMessages(state) {
             return state.messages.flat();
+        },
+        getIsLoaded(state) {
+            return state.isLoaded;
         },
     },
 });

@@ -16,11 +16,18 @@ const target = ref(null);
 const { stop } = useIntersectionObserver(
     target,
     ([{ isIntersecting }], observerElement) => {
-        if (isIntersecting) {
-            console.log('Intersecting');
+        if (isIntersecting && messagesStore.getIsLoaded) {
+            messagesStore.fetchPreviousMessages(props.room.slug);
         }
     },
 );
+
+const props = defineProps({
+    room: {
+        type: Object,
+        required: true,
+    }
+});
 
 const messagesStore = useMessagesStore();
 
@@ -60,7 +67,7 @@ const messagesStore = useMessagesStore();
                 </p>
             </div>
             <!-- End Messages Received -->
-            <div ref="target" class=""></div>
+            <div ref="target" class="translate-y-20"></div>
         </div>
 
     </main>
