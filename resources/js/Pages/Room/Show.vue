@@ -56,7 +56,7 @@ messagesStore.fetchMessages(props.room.slug);
             <!-- END Page Content -->
 
             <!-- Page Footer -->
-            <Footer v-on:valid="storeMessage({ content: $event })" />
+            <Footer v-on:valid="storeMessage({ content: $event })" v-on:typing="console.log($event)" />
             <!-- END Page Footer -->
 
         </div>
