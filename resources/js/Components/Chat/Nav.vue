@@ -1,3 +1,11 @@
+<script setup>
+import { useUsersStore } from '@/Store/useUsersStore';
+
+
+const usersStore = useUsersStore();
+
+</script>
+
 <template>
     <nav id="page-sidebar"
         class="fixed bottom-0 start-0 top-0 z-50 flex h-full w-80 flex-col overflow-auto bg-slate-200 transition-transform duration-500 ease-out lg:translate-x-0 lg:shadow-none ltr:lg:translate-x-0 rtl:lg:translate-x-0 ltr:-translate-x-full rtl:translate-x-full lg:flex"
@@ -35,20 +43,21 @@
         <!-- END Sidebar Header -->
 
         <!-- Main Navigation -->
+        <!-- Main Navigation -->
         <div class="grow space-y-2 ps-4 pt-2">
-            <a
+            <a v-for="user in usersStore.allUsers" :key="user.id"
                 class="flex items-center gap-3 border-indigo-500 bg-white px-3 py-4 shadow-sm ltr:rounded-l ltr:border-l-4 rtl:rounded-r rtl:border-r-4">
                 <div class="relative flex-none">
-                    <img alt="User Avatar" class="h-11 w-11 rounded-full border-2 border-white/50" />
+                    <img :src="user.avatar" alt="User Avatar" class="h-11 w-11 rounded-full border-2 border-white/50" />
                     <span
                         class="absolute bottom-0 end-0 h-3 w-3 rounded-full border-2 border-white bg-emerald-500 shadow-sm"></span>
                 </div>
                 <div class="grow">
                     <p class="mb-0.5 line-clamp-1 text-sm font-bold">
-                        sakib
+                        {{ user.name }}
                     </p>
                     <p class="line-clamp-1 text-xs font-medium text-slate-500">
-                        sakib@gmail.com
+                        {{ user.email }}
                     </p>
                 </div>
                 <div class="flex-none self-start">
@@ -62,6 +71,7 @@
                 </div>
             </a>
         </div>
+        <!-- END Main Navigation -->
         <!-- END Main Navigation -->
 
         <!-- Sub Navigation -->
