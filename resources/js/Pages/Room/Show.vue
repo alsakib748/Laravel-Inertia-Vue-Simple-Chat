@@ -14,6 +14,10 @@ const props = defineProps({
     }
 });
 
+onUnmounted(() => {
+    Echo.leave(`room.${props.room.id}`);
+});
+
 const messagesStore = useMessagesStore();
 
 const usersStore = useUsersStore();
@@ -30,7 +34,10 @@ channel
     })
     .here((users) => usersStore.setUsers(users))
     .joining((user) => usersStore.addUser(user))
-    .leaving((user) => usersStore.removeUser(user));
+    .leaving((user) => usersStore.removeUser(user))
+    .listenForWhisper("typing", (e) => {
+        usersStore.setTyping(e);
+    });
 
 messagesStore.fetchMessages(props.room.slug);
 
@@ -56,7 +63,10 @@ messagesStore.fetchMessages(props.room.slug);
             <!-- END Page Content -->
 
             <!-- Page Footer -->
-            <Footer v-on:valid="storeMessage({ content: $event })" v-on:typing="console.log($event)" />
+            <Footer v-on:valid="storeMessage({ content: $event })" v-on:typing="channel.whisper('typing', {
+                user_id: $page.props.auth.user.id,
+                typing: $event,
+            })" />
             <!-- END Page Footer -->
 
         </div>

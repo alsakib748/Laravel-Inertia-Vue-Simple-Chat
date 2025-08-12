@@ -20,7 +20,7 @@ class MessageResource extends JsonResource
             'id' => $this->id,
             'content' => $this->content,
             'user' => UserResource::make($this->user),
-            'created_at' => $this->created_at->format('g:i a'),
+            'created_at' => $this->created_at->format('Y-m-d g:i a'),
         ];
 
     }
